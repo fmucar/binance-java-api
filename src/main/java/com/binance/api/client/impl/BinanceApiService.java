@@ -14,6 +14,7 @@ import com.binance.api.client.domain.account.Trade;
 import com.binance.api.client.domain.account.TradeHistoryItem;
 import com.binance.api.client.domain.account.WithdrawHistory;
 import com.binance.api.client.domain.account.WithdrawResult;
+import com.binance.api.client.domain.account.request.CancelOrderResponse;
 import com.binance.api.client.domain.event.ListenKey;
 import com.binance.api.client.domain.general.Asset;
 import com.binance.api.client.domain.general.ExchangeInfo;
@@ -100,6 +101,14 @@ public interface BinanceApiService {
                                   @Query("recvWindow") Long recvWindow, @Query("timestamp") Long timestamp);
 
   @Headers(BinanceApiConstants.ENDPOINT_SECURITY_TYPE_SIGNED_HEADER)
+  @POST("/api/v3/order")
+  Call<NewOrderResponse> newOrderQuoteQty(@Query("symbol") String symbol, @Query("side") OrderSide side, @Query("type") OrderType type,
+                                  @Query("timeInForce") TimeInForce timeInForce, @Query("quoteOrderQty") String quoteOrderQty, @Query("price") String price,
+                                  @Query("newClientOrderId") String newClientOrderId, @Query("stopPrice") String stopPrice,
+                                  @Query("icebergQty") String icebergQty, @Query("newOrderRespType") NewOrderResponseType newOrderRespType,
+                                  @Query("recvWindow") Long recvWindow, @Query("timestamp") Long timestamp);
+
+  @Headers(BinanceApiConstants.ENDPOINT_SECURITY_TYPE_SIGNED_HEADER)
   @POST("/api/v3/order/test")
   Call<Void> newOrderTest(@Query("symbol") String symbol, @Query("side") OrderSide side, @Query("type") OrderType type,
                           @Query("timeInForce") TimeInForce timeInForce, @Query("quantity") String quantity, @Query("price") String price,
@@ -115,9 +124,9 @@ public interface BinanceApiService {
 
   @Headers(BinanceApiConstants.ENDPOINT_SECURITY_TYPE_SIGNED_HEADER)
   @DELETE("/api/v3/order")
-  Call<Void> cancelOrder(@Query("symbol") String symbol, @Query("orderId") Long orderId,
-                             @Query("origClientOrderId") String origClientOrderId, @Query("newClientOrderId") String newClientOrderId,
-                             @Query("recvWindow") Long recvWindow, @Query("timestamp") Long timestamp);
+  Call<CancelOrderResponse> cancelOrder(@Query("symbol") String symbol, @Query("orderId") Long orderId,
+                                        @Query("origClientOrderId") String origClientOrderId, @Query("newClientOrderId") String newClientOrderId,
+                                        @Query("recvWindow") Long recvWindow, @Query("timestamp") Long timestamp);
 
   @Headers(BinanceApiConstants.ENDPOINT_SECURITY_TYPE_SIGNED_HEADER)
   @GET("/api/v3/openOrders")

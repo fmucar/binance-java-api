@@ -12,6 +12,7 @@ import com.binance.api.client.domain.account.WithdrawHistory;
 import com.binance.api.client.domain.account.WithdrawResult;
 import com.binance.api.client.domain.account.request.AllOrdersRequest;
 import com.binance.api.client.domain.account.request.CancelOrderRequest;
+import com.binance.api.client.domain.account.request.CancelOrderResponse;
 import com.binance.api.client.domain.account.request.OrderRequest;
 import com.binance.api.client.domain.account.request.OrderStatusRequest;
 import com.binance.api.client.domain.general.ExchangeInfo;
@@ -27,7 +28,7 @@ import com.binance.api.client.domain.market.TickerStatistics;
 import java.util.List;
 
 /**
- * Binance API façade, supporting synchronous/blocking access Binance's REST API.
+ * Binance API facade, supporting synchronous/blocking access Binance's REST API.
  */
 public interface BinanceApiRestClient {
 
@@ -183,7 +184,7 @@ public interface BinanceApiRestClient {
    *
    * @param cancelOrderRequest order status request parameters
    */
-  void cancelOrder(CancelOrderRequest cancelOrderRequest);
+  CancelOrderResponse cancelOrder(CancelOrderRequest cancelOrderRequest);
 
   /**
    * Get all open orders on a symbol.
